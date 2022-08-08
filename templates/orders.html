@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Orders
+{% endblock %}
+
+{% block main %}
+<div class="container py-5 text-center">
+    <h2>Orders</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col" class="text-start">First name</th>
+                <th scope="col" class="text-start">Last name</th>
+                <th scope="col" class="text-start">E-mail</th>
+                <th scope="col" class="text-start">Phone</th>
+                <th scope="col" class="text-start">Address</th>
+                <th scope="col" class="text-start">Product</th>
+                <th scope="col" class="text-end">Quantity</th>
+                <th scope="col" class="text-end">Total</th>
+                <th scope="col" class="text-end">Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in orders %}
+            <tr>
+                <td class="text-start">{{ row.Buyer.first_name }}</td>
+                <td class="text-start">{{ row.Buyer.last_name }}</td>
+                <td class="text-start">{{ row.Buyer.email }}</td>
+                <td class="text-start">{{ row.Buyer.phone }}</td>
+                <td class="text-start">{{ row.Buyer.address }}</td>
+                <td class="text-start">{{ row.Product.name }}</td>
+                <td class="text-end">{{ row.Order.quantity }}</td>
+                <td class="text-end">${{ '%0.2f'| format(row.Order.total|float) }}</td>
+                <td class="text-end">{{ row.Order.date }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

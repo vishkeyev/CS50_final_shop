@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Shop
+{% endblock %}
+
+{% block main %}
+
+    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+      {% for product in products %}
+        <div class="col">
+          <div class="card mb-4 rounded-3 shadow-sm">
+            <div class="card-header py-3">
+              <h4 class="my-0 fw-normal">{{ product.name }}</h4>
+            </div>
+            <div class="card-body">
+              <form action="/buy" method="post">
+              <p class="card-text">{{ product.description[:350] }}</p>
+              <h1 class="card-title pricing-card-title">${{ '%0.2f'| format(product.price|float) }}</h1>
+              <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-3">
+                <h3 class="ms-auto w-100">Quantity:</h3>
+                <input autocomplete="off" class="form-control mx-auto w-100" min="1" name="quantity" placeholder="" type="number" value="1">
+                <input name="id" type="hidden" value="{{ product.id }}">
+              </div>
+              <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <button type="submit" class="w-100 btn btn-lg btn-outline-primary">Buy</button>
+            </div>
+          </form>
+          <!-- {% if session["user_id"] %}
+          <form id="delete{{ product.id }}" action="/delete_item" method="post" class="mt-3">
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+            <input name="id" type="hidden" value="{{ product.id }}">
+            <button  type="submit" form="delete{{ product.id }}" class="w-100 btn btn-lg btn-primary">Delete item</button>
+          </div>
+          </form>                
+          {% endif %}  -->
+          </div>
+          </div>
+        </div>
+    {% endfor %}
+    </div>
+{% endblock %}
